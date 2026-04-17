@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VolunteerSync | Empowering Communities</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- AMBIENT ELEMENTS -->
+  <div id="cursor-glow"></div>
+  <div class="app-bg">
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar reveal" id="nav-bar">
+    <div class="container nav-wrap">
+      <div class="brand" onclick="navigate('home')" style="cursor:pointer;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 21L10.55 19.705C5.4 15.035 2 11.95 2 8.195C2 5.125 4.42 2.705 7.5 2.705C9.24 2.705 10.91 3.515 12 4.795C13.09 3.515 14.76 2.705 17.5 2.705C20.58 2.705 23 5.125 23 8.195C23 11.95 19.6 15.035 14.45 19.71L12 21Z"
+            fill="currentColor" />
+        </svg>
+        <span>VolunteerSync</span>
+      </div>
+      <div class="nav-links">
+        <a href="javascript:void(0)" onclick="navigate('home')" class="nav-link active" data-page="home">Home</a>
+        <a href="javascript:void(0)" onclick="navigate('home', 'stories')" class="nav-link">Impact</a>
+        <a href="javascript:void(0)" onclick="navigate('home', 'needs')" class="nav-link">Active Needs</a>
+        <a href="javascript:void(0)" onclick="navigate('dash')" class="nav-link" data-page="dash">Dashboard</a>
+      </div>
+      <div class="nav-auth" id="nav-user-ctrl">
+        <button class="btn btn-soft" style="padding: 0.6rem 1.5rem;" onclick="navigate('login')">Sign In</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE WRAPPER -->
+  <main id="view-container">
+
+    <!-- HOME PAGE -->
+    <div id="view-home" class="nav-page active">
+      <!-- HERO SECTION -->
+      <section class="hero b-reveal" id="hero">
+        <div class="container asym-grid">
+          <div class="hero-content">
+            <h1 class="reveal stagger-1 wipe-reveal">Healing Communities, <br><span
+                style="color:var(--accent)">Together.</span></h1>
+            <p class="reveal stagger-2" style="margin: 2rem 0;">We connect local needs with compassionate volunteers.
+              Every hand counts, every action sparks change. Join our network of thousands making a real difference
+              today.</p>
+            <div class="reveal stagger-3" style="display: flex; gap: 1rem;">
+              <button class="btn btn-primary" onclick="navigate('signup')">Volunteer Now</button>
+              <button class="btn btn-soft" onclick="navigate('home', 'needs')">Support a Need</button>
+            </div>
+          </div>
+          <div class="reveal stagger-3">
+            <div class="hero-img-wrap parallax-wrap animate-float">
+              <img src="../assets/ngo_hero_connection_1776441547234.png" alt="Volunteers working" class="hero-img"
+                id="hero-img">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- IMPACT STATS -->
+      <div class="container reveal wipe-reveal">
+        <div class="stats-bar">
+          <div class="stat-grid">
+            <div class="stat-item reveal stagger-1">
+              <h3 class="impact-stat" data-val="52">0</h3>
+              <p>Active Needs</p>
+            </div>
+            <div class="stat-item reveal stagger-2">
+              <h3 class="impact-stat" data-val="1248">0</h3>
+              <p>Volunteers</p>
+            </div>
+            <div class="stat-item reveal stagger-3">
+              <h3 class="impact-stat" data-val="92">0</h3>
+              <p>% Match Rate</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMPACT STORIES -->
+      <section class="section-pad" id="stories">
+        <div class="container">
+          <h2 class="reveal wipe-reveal">Voices of <span style="color:var(--accent)">Impact</span></h2>
+          <div class="card-grid">
+
+            <div class="tilt-wrapper">
+              <div class="story-card reveal stagger-1 tilt-inner">
+                <img src="../assets/ngo_rural_classroom_1776441801673.png" class="card-img" alt="Community Support">
+                <div class="card-body">
+                  <span class="card-tag">Education</span>
+                  <h3 class="card-title">Supporting Rural Classrooms</h3>
+                  <p>Providing essential supplies and volunteer teachers to schools in remote areas.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tilt-wrapper">
+              <div class="story-card reveal stagger-2 tilt-inner">
+                <img src="../assets/ngo_food_dist_1776441828730.png" class="card-img" alt="Food Relief">
+                <div class="card-body">
+                  <span class="card-tag">Relief</span>
+                  <h3 class="card-title">Midnight Food Drives</h3>
+                  <p>Our volunteers distributed over 2000 meals during the cold wave.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tilt-wrapper">
+              <div class="story-card reveal stagger-3 tilt-inner">
+                <img src="../assets/ngo_health_camp_1776441854373.png" class="card-img" alt="Medical Camp">
+                <div class="card-body">
+                  <span class="card-tag">Health</span>
+                  <h3 class="card-title">Community Health Camps</h3>
+                  <p>Organizing free checkups and medicine distribution for elderly citizens.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ACTIVE NEEDS FEED -->
+      <section class="section-pad" id="needs" style="background-color: var(--bg-alt);">
+        <div class="container">
+          <div class="asym-grid">
+            <div>
+              <h2 class="reveal wipe-reveal">Urgent <span style="color:var(--highlight)">Needs</span></h2>
+              <p class="reveal">These communities require immediate assistance. Your support can change lives within
+                hours.</p>
+              <div id="home-match-list" class="reveal stagger-1"
+                style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                <!-- Initial items here -->
+              </div>
+            </div>
+            <div class="reveal stagger-2">
+              <div class="form-panel tilt-wrapper">
+                <div class="tilt-inner">
+                  <h3 style="margin-bottom: 2rem;">Help us identify needs</h3>
+                  <p style="margin-bottom: 2rem; font-size: 0.9rem;">Are you aware of a community crisis or need? Log it
+                    here to alert our coordinators.</p>
+                  <button class="btn btn-primary" style="width: 100%;" onclick="navigate('needs')">Quick Log
+                    Portal</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div id="view-login" class="nav-page">
+      <section class="section-pad">
+        <div class="container" style="max-width: 500px;">
+          <div class="form-panel tilt-wrapper">
+            <div class="tilt-inner">
+              <h2 style="text-align:center;">Welcome Back</h2>
+              <p style="text-align:center; margin-bottom: 2rem;">Sign in to continue your mission</p>
+              <div class="field">
+                <label>Email Address</label>
+                <input type="email" id="l-email" placeholder="you@example.com">
+              </div>
+              <div class="field">
+                <label>Password</label>
+                <input type="password" id="l-password" placeholder="••••••••">
+              </div>
+              <button class="btn btn-primary" style="width: 100%;" onclick="handleAuth('login')">Sign In</button>
+              <p style="text-align:center; margin-top: 1.5rem; font-size: 0.9rem;">Don't have an account? <a
+                  href="javascript:void(0)" onclick="navigate('signup')"
+                  style="color:var(--primary); font-weight:600;">Join Us</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SIGN UP PAGE -->
+    <div id="view-signup" class="nav-page">
+      <section class="section-pad">
+        <div class="container" style="max-width: 600px;">
+          <div class="form-panel tilt-wrapper">
+            <div class="tilt-inner">
+              <h2 style="text-align:center;">Create Your Profile</h2>
+              <p style="text-align:center; margin-bottom: 2rem;">Join 5,000+ others making a difference</p>
+              <div class="field">
+                <label>Full Name</label>
+                <input type="text" id="s-name" placeholder="Aarav Shah">
+              </div>
+              <div class="field">
+                <label>Email Address</label>
+                <input type="email" id="s-email" placeholder="aarav@mission.org">
+              </div>
+              <div class="field">
+                <label>Phone Number</label>
+                <input type="tel" id="s-phone" placeholder="+91 XXXXX XXXXX">
+              </div>
+              <div class="field">
+                <label>Password</label>
+                <input type="password" id="s-pass" placeholder="Create a secure password">
+              </div>
+              <div class="field">
+                <label>I am joining as a</label>
+                <select id="s-role">
+                  <option value="volunteer">Volunteer (I want to help)</option>
+                  <option value="ngo">NGO / Coordinator (I have needs to log)</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" style="width: 100%;" onclick="handleAuth('signup')">Create
+                Account</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="view-dash" class="nav-page">
+      <section class="section-pad">
+        <div class="container">
+          <div class="asym-grid">
+            <div class="reveal wipe-reveal">
+              <h2>Mission <span style="color:var(--accent)">Control</span></h2>
+              <p>Manage your coordination hub and live community matches.</p>
+            </div>
+            <div style="text-align: right;">
+              <button class="btn btn-soft" onclick="openNeedModal()">Log New Need</button>
+            </div>
+          </div>
+
+          <div class="stat-grid" style="margin: 3rem 0;">
+            <div class="stat-card reveal animate-float stagger-1">
+              <h3>5</h3>
+              <p>Your Logged Needs</p>
+            </div>
+            <div class="stat-card reveal animate-float stagger-2">
+              <h3>12</h3>
+              <p>Available Volunteers</p>
+            </div>
+            <div class="stat-card reveal animate-float stagger-3">
+              <h3 style="color:var(--highlight)">3</h3>
+              <p>New Matches</p>
+            </div>
+          </div>
+
+          <p class="reveal staggered-1" style="margin-bottom: 1.5rem; font-weight: 600;">Recommended Matches ✨</p>
+          <div class="card-grid" id="dash-match-list">
+            <!-- Matches Rendered Here -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- DONATE MODAL -->
+  <div class="auth-overlay" id="donate-modal">
+    <div class="auth-modal">
+      <div style="padding: 2.5rem;">
+        <h3>Support the Flow</h3>
+        <p>Your contribution keeps our servers running and our volunteers moving.</p>
+        <div class="field" style="margin-top: 1.5rem;">
+          <label>Contribution Amount ($)</label>
+          <input type="number" placeholder="25.00">
+        </div>
+        <button class="btn btn-primary" style="width: 100%;"
+          onclick="showToast('Thank you for your generosity!')">Complete Donation</button>
+        <button class="btn btn-soft" style="width: 100%; margin-top: 1rem;"
+          onclick="document.getElementById('donate-modal').classList.remove('active')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=fresh"></script>
+</body>
+
+</html>
