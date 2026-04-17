@@ -60,8 +60,17 @@ function initImmersiveEngine() {
       el.style.transform = `translate3d(${px}px, ${py}px, 0)`;
     });
 
+    // Liquid background parallax
+    document.querySelectorAll('.parallax-wrap-bg').forEach((el, i) => {
+      const depth = (i + 1) * 0.2;
+      const bx = (mx / window.innerWidth - 0.5) * 60 * depth;
+      const by = (my / window.innerHeight - 0.5) * 40 * depth;
+      el.style.transform = `translate3d(${bx}px, ${by}px, 0)`;
+    });
+
     requestAnimationFrame(tick);
   }
+
   tick();
 
   // 4. Advanced Scroll Reveal (Storytelling)

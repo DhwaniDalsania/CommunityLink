@@ -15,6 +15,16 @@
   --text-muted: #64748b;
   --border: #e2e8f0;
 
+  /* Blob Palette (Premium Organic) */
+  --blob-mint: #d1fae5;
+  --blob-emerald: #bde0d2;
+  --blob-teal: #c9f8ee;
+  --blob-pale: #cbf8db;
+  --bg-subtle: #f0fdf4;
+
+
+
+
   /* Shared values */
   --font: 'Outfit', sans-serif;
   --r-sm: 8px;
@@ -43,7 +53,7 @@ html {
 
 body {
   font-family: var(--font);
-  background-color: var(--bg);
+  background-color: var(--bg-subtle);
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
@@ -51,6 +61,7 @@ body {
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
+
 
 
 /* ── LAYOUT UTILS ── */
@@ -90,29 +101,83 @@ body {
 .app-bg {
   position: fixed;
   inset: 0;
-  z-index: -10;
-  background-color: var(--bg);
+  z-index: 5;
+  background-color: transparent;
   pointer-events: none;
 }
 
-@keyframes atmosphere {
+
+
+
+@keyframes drift-1 {
 
   0%,
   100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.15;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 0.6;
   }
 
   33% {
-    transform: translate(2%, 3%) scale(1.05);
-    opacity: 0.2;
+    transform: translate(10vw, 5vh) scale(1.1) rotate(5deg);
+    opacity: 0.8;
   }
 
   66% {
-    transform: translate(-1%, -2%) scale(0.98);
-    opacity: 0.12;
+    transform: translate(5vw, 15vh) scale(0.95) rotate(-5deg);
+    opacity: 0.6;
   }
 }
+
+@keyframes drift-2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1.05) rotate(0deg);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translate(-8vw, 10vh) scale(0.9) rotate(10deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes drift-3 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(0.95);
+    opacity: 0.4;
+  }
+
+  40% {
+    transform: translate(15vw, -5vh) scale(1.15);
+    opacity: 0.6;
+  }
+}
+
+
+@keyframes morph {
+
+  0%,
+  100% {
+    border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%;
+    opacity: 0.8;
+  }
+
+  34% {
+    border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+    opacity: 1;
+  }
+
+  67% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    opacity: 0.9;
+  }
+}
+
+
+
 
 @keyframes float {
 
@@ -128,28 +193,59 @@ body {
 
 .bg-shape {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.15;
+  filter: blur(40px);
+  opacity: 0.7;
+  will-change: transform, opacity, border-radius;
+  pointer-events: none;
 }
 
+
+
+
 .shape-1 {
-  background: var(--primary);
-  width: 40vw;
-  height: 40vw;
-  top: -10%;
-  left: -10%;
-  animation: atmosphere 15s ease-in-out infinite;
+  background: radial-gradient(circle at 30% 30%, var(--blob-emerald) 0%, var(--blob-teal) 100%);
+  width: 350px;
+  height: 350px;
+  top: 10%;
+  left: 5%;
+  animation: drift-1 25s ease-in-out infinite, morph 18s ease-in-out infinite;
 }
 
 .shape-2 {
-  background: var(--highlight);
-  width: 30vw;
-  height: 30vw;
+  background: radial-gradient(circle at 70% 70%, var(--blob-mint) 0%, var(--blob-pale) 100%);
+  width: 450px;
+  height: 450px;
   bottom: 5%;
-  right: -5%;
-  animation: atmosphere 20s ease-in-out infinite reverse;
+  right: 5%;
+  animation: drift-2 30s ease-in-out infinite, morph 22s ease-in-out infinite;
 }
+
+.shape-3 {
+  background: radial-gradient(circle at 50% 50%, var(--blob-teal) 0%, var(--blob-mint) 100%);
+  width: 300px;
+  height: 300px;
+  top: 30%;
+  left: 20%;
+  animation: drift-3 35s ease-in-out infinite, morph 20s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.shape-4 {
+  background: radial-gradient(circle at 40% 60%, var(--blob-pale) 0%, var(--blob-emerald) 100%);
+  width: 250px;
+  height: 250px;
+  top: 15%;
+  right: 15%;
+  animation: drift-1 28s ease-in-out infinite reverse, morph 25s ease-in-out infinite;
+  opacity: 0.55;
+}
+
+
+
+
+
+
+
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
@@ -335,6 +431,15 @@ main {
   transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1);
   will-change: transform;
 }
+
+.parallax-wrap-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
 
 /* ── HERO & SECTIONS ── */
 .hero {
