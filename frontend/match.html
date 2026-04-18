@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Match — CommunityLink</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">◈</div>
+      <span class="brand-name">CommunityLink</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html"     class="nav-link">Dashboard</a>
+      <a href="needs.html"     class="nav-link">Report Need</a>
+      <a href="volunteer.html" class="nav-link">Volunteer</a>
+      <a href="match.html"     class="nav-link nav-cta active">Smart Match →</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger">☰</div>
+  </nav>
+
+  <div class="page-hero page-hero--purple">
+    <div class="page-hero-content">
+      <div class="page-breadcrumb">Dashboard / Smart Matching</div>
+      <h1 class="page-title">Gemini AI Matching Engine</h1>
+      <p class="page-sub">Our system sends every volunteer–need combination to Gemini AI, which scores them on location, skills, urgency, and availability — returning ranked matches with natural language explanations.</p>
+    </div>
+    <div class="page-hero-icon" style="font-size:48px;opacity:.6">✦</div>
+  </div>
+
+  <!-- MATCH CONTROLS -->
+  <section class="match-controls-section">
+    <div class="match-controls">
+      <div class="control-group">
+        <label>Filter by Area</label>
+        <select id="filterArea"><option value="">All Areas</option></select>
+      </div>
+      <div class="control-group">
+        <label>Filter by Urgency</label>
+        <select id="filterUrgency">
+          <option value="">All Urgency</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Filter by Category</label>
+        <select id="filterCategory"><option value="">All Categories</option></select>
+      </div>
+      <button class="btn-primary" id="runMatchBtn">✦ Run Gemini Match</button>
+      <button class="btn-secondary" id="seedDataBtn" style="font-size:12px">Load Demo Data</button>
+    </div>
+    <div class="match-summary-bar">
+      <span id="matchCount">—</span>
+      <span id="matchScore">—</span>
+    </div>
+  </section>
+
+  <!-- MATCH RESULTS -->
+  <section class="match-results-section">
+
+    <div class="ai-thinking" id="aiThinking" style="display:none;">
+      <div class="ai-thinking-inner">
+        <div class="ai-brain">✦</div>
+        <div class="ai-thinking-text">Sending <span id="thinkCount">0</span> combinations to Gemini AI...</div>
+        <div class="ai-bar"><div class="ai-bar-fill" id="aiBarFill"></div></div>
+        <div class="ai-steps" id="aiSteps">
+          <div>📍 Geo-matching by location...</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="matchResultsEmpty" style="display:none;">
+      <div class="empty-icon">✦</div>
+      <p>No data yet or no open needs matched available volunteers.<br/>
+      Load demo data or <a href="needs.html" style="color:var(--accent)">report a need</a> and <a href="volunteer.html" style="color:var(--accent)">add volunteers</a> to begin.</p>
+    </div>
+
+    <div id="matchResults" style="display:none;"></div>
+
+  </section>
+
+  <!-- IMPACT STATS -->
+  <section class="section-main" style="padding-top:0">
+    <div class="section-header">
+      <h2 class="section-title">Platform Impact</h2>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="impact-num" id="impactNeeds">—</div>
+        <div class="impact-label">Total Needs</div>
+        <div class="impact-bar-wrap"><div class="impact-bar-fill" id="needsBar"></div></div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num" id="impactVols">—</div>
+        <div class="impact-label">Volunteers</div>
+        <div class="impact-bar-wrap"><div class="impact-bar-fill" id="volsBar" style="background:var(--teal)"></div></div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num" id="impactMatches">—</div>
+        <div class="impact-label">Matches Made</div>
+        <div class="impact-bar-wrap"><div class="impact-bar-fill" id="matchesBar" style="background:var(--purple)"></div></div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num" id="impactPeople">—</div>
+        <div class="impact-label">People Helped</div>
+        <div class="impact-bar-wrap"><div class="impact-bar-fill" id="peopleBar" style="background:var(--green)"></div></div>
+      </div>
+    </div>
+
+    <!-- NEEDS TABLE -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>All Reported Needs</h3>
+        <a href="needs.html" class="btn-link" style="font-size:12px">+ Report New →</a>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Area</th>
+              <th>Category</th>
+              <th>Title</th>
+              <th style="text-align:center">Affected</th>
+              <th>Urgency</th>
+              <th>Skill</th>
+              <th>Reporter</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="needsTableBody">
+            <tr><td colspan="8" class="empty-td">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- VOLUNTEERS TABLE -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>All Registered Volunteers</h3>
+        <a href="volunteer.html" class="btn-link" style="font-size:12px">+ Register →</a>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Area</th>
+              <th>Skills</th>
+              <th>Days</th>
+              <th>Hours/Week</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="volsTableBody">
+            <tr><td colspan="6" class="empty-td">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- MATCH DETAIL MODAL -->
+  <div class="match-modal hidden" id="matchModal">
+    <div class="modal-inner">
+      <div class="modal-header">
+        <div class="modal-score-big" id="modalScore">—</div>
+        <div class="modal-header-text">
+          <h2 id="modalTitle">Match Details</h2>
+          <p id="modalSubtitle">Best volunteer match</p>
+        </div>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="modalClose2">Cancel</button>
+        <button class="btn-primary" id="modalAssign">✅ Assign Volunteer</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">◈ CommunityLink</div>
+    <p class="footer-sub">Flask · Firestore · Gemini AI · Cloud Run</p>
+    <div class="footer-links">
+      <a href="index.html">Dashboard</a>
+      <a href="needs.html">Report Need</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="match.html">Match</a>
+    </div>
+  </footer>
+
+  <div class="toast hidden" id="globalToast"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/match.js"></script>
+</body>
+</html>

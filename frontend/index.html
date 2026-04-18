@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CommunityLink — Volunteer Coordination Platform</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">◈</div>
+      <span class="brand-name">CommunityLink</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html"     class="nav-link active">Dashboard</a>
+      <a href="needs.html"     class="nav-link">Report Need</a>
+      <a href="volunteer.html" class="nav-link">Volunteer</a>
+      <a href="match.html"     class="nav-link nav-cta">Smart Match →</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger">☰</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">AI-Powered · Firestore · Cloud Run</div>
+      <h1 class="hero-title">Connecting<br/><span class="accent">Community Needs</span><br/>with Willing Hearts</h1>
+      <p class="hero-sub">CommunityLink gathers field data in real time, surfaces the most urgent local crises, and uses Gemini AI to intelligently match volunteers — synced across all users via Firestore.</p>
+      <div class="hero-actions">
+        <a href="needs.html" class="btn-primary">Report a Need</a>
+        <a href="volunteer.html" class="btn-secondary">Volunteer Now</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num" id="totalNeeds">—</div>
+        <div class="stat-label">Active Needs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="totalVolunteers">—</div>
+        <div class="stat-label">Volunteers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="totalMatches">—</div>
+        <div class="stat-label">Matches Made</div>
+      </div>
+      <div class="stat-card urgent-stat">
+        <div class="stat-num" id="urgentCount">—</div>
+        <div class="stat-label">Urgent Needs</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEED BANNER -->
+  <div class="seed-banner" id="seedBanner">
+    <div class="seed-banner-inner">
+      <span>No data yet? Load sample data to explore the platform.</span>
+      <button class="btn-seed" id="seedBtn">Load Demo Data</button>
+    </div>
+  </div>
+
+  <!-- LIVE FEED + CHARTS -->
+  <section class="section-main">
+    <div class="section-header">
+      <h2 class="section-title">Live Community Pulse</h2>
+      <span class="live-dot"><span class="pulse-ring"></span>LIVE · Firestore</span>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="card card-needs">
+        <div class="card-header">
+          <h3>Urgent Needs</h3>
+          <span class="badge badge-red" id="urgentBadge">0</span>
+        </div>
+        <div class="needs-feed" id="urgentFeed">
+          <div class="skeleton" style="height:60px;margin-bottom:8px"></div>
+          <div class="skeleton" style="height:60px;margin-bottom:8px"></div>
+          <div class="skeleton" style="height:60px"></div>
+        </div>
+      </div>
+
+      <div class="card card-chart">
+        <div class="card-header"><h3>Needs by Area</h3></div>
+        <div class="chart-wrap"><canvas id="areaChart"></canvas></div>
+      </div>
+
+      <div class="card card-skills">
+        <div class="card-header"><h3>Volunteer Skills</h3></div>
+        <div class="skills-grid" id="skillsGrid">
+          <div class="skeleton" style="height:28px;width:120px;border-radius:20px"></div>
+          <div class="skeleton" style="height:28px;width:90px;border-radius:20px"></div>
+          <div class="skeleton" style="height:28px;width:140px;border-radius:20px"></div>
+        </div>
+      </div>
+
+      <div class="card card-donut">
+        <div class="card-header"><h3>Urgency Breakdown</h3></div>
+        <div class="chart-wrap"><canvas id="urgencyChart"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section-timeline">
+    <div class="section-header">
+      <h2 class="section-title">Recent Activity</h2>
+      <a href="match.html" class="btn-link">View All Matches →</a>
+    </div>
+    <div class="timeline" id="activityTimeline">
+      <div class="skeleton" style="height:52px;margin-bottom:1px"></div>
+      <div class="skeleton" style="height:52px;margin-bottom:1px"></div>
+      <div class="skeleton" style="height:52px"></div>
+    </div>
+  </section>
+
+  <!-- AI PANEL -->
+  <section class="section-ai">
+    <div class="ai-panel">
+      <div class="ai-icon">✦</div>
+      <div class="ai-content">
+        <h3>Gemini AI Insight Engine</h3>
+        <p id="aiInsight" class="ai-loading">Connecting to Gemini AI...</p>
+      </div>
+      <a href="match.html" class="btn-primary">Run AI Match</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-brand">◈ CommunityLink</div>
+    <p class="footer-sub">Flask · Firestore · Gemini AI · Cloud Run</p>
+    <div class="footer-links">
+      <a href="index.html">Dashboard</a>
+      <a href="needs.html">Report Need</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="match.html">Match</a>
+    </div>
+  </footer>
+
+  <div class="toast hidden" id="globalToast"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

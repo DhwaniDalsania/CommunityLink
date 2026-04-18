@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Join as Volunteer — CommunityLink</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">◈</div>
+      <span class="brand-name">CommunityLink</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html"     class="nav-link">Dashboard</a>
+      <a href="needs.html"     class="nav-link">Report Need</a>
+      <a href="volunteer.html" class="nav-link active">Volunteer</a>
+      <a href="match.html"     class="nav-link nav-cta">Smart Match →</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger">☰</div>
+  </nav>
+
+  <div class="page-hero page-hero--teal">
+    <div class="page-hero-content">
+      <div class="page-breadcrumb">Dashboard / Join as Volunteer</div>
+      <h1 class="page-title">Become a Changemaker</h1>
+      <p class="page-sub">Register your skills and availability. Gemini AI will instantly match you with community needs where you can make the biggest impact — and your profile syncs across all coordinators in real time.</p>
+    </div>
+    <div class="page-hero-icon" style="font-size:48px;opacity:.6">🤝</div>
+  </div>
+
+  <div class="form-page">
+    <div class="form-sidebar">
+      <h3>Why Volunteer?</h3>
+      <ul class="why-list">
+        <li>🎯 Matched to needs that suit your skills</li>
+        <li>📍 Work in your own area</li>
+        <li>⏰ Choose your own availability</li>
+        <li>✦ Gemini AI finds your best fit</li>
+        <li>🌐 Coordinators can see you instantly</li>
+      </ul>
+      <div class="sidebar-tip">
+        <strong>Tip:</strong> Add multiple skills and a flexible schedule — Gemini AI gives you a higher compatibility score.
+      </div>
+
+      <div class="volunteer-stats-sidebar">
+        <h4>Community Volunteers</h4>
+        <div class="vol-stat-row">
+          <span>Total Registered</span>
+          <strong id="sideVolTotal">—</strong>
+        </div>
+        <div class="vol-stat-row">
+          <span>Available Now</span>
+          <strong id="sideVolAvail">—</strong>
+        </div>
+        <div class="vol-stat-row">
+          <span>Tasks Completed</span>
+          <strong id="sideVolDone">—</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-main-wrap">
+      <form class="cl-form" id="volunteerForm" novalidate>
+
+        <div class="form-section-label">Personal Information</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="volName" placeholder="Your full name" required/>
+          </div>
+          <div class="form-group">
+            <label>Age <span class="optional">(optional)</span></label>
+            <input type="number" id="volAge" placeholder="e.g. 24" min="14" max="80"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="volEmail" placeholder="your@email.com" required/>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="volPhone" placeholder="+91 XXXXX XXXXX" required/>
+          </div>
+        </div>
+
+        <div class="form-section-label">Location & Availability</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Area / Locality *</label>
+            <input type="text" id="volArea" placeholder="e.g. Anand North, Sector 4" required/>
+          </div>
+          <div class="form-group">
+            <label>District</label>
+            <input type="text" id="volDistrict" placeholder="e.g. Anand"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>How far can you travel? — <span id="radiusVal">10 km</span></label>
+          <div class="range-wrap">
+            <span style="font-size:11px;color:var(--text3);font-family:var(--font-mono)">1 km</span>
+            <input type="range" id="volRadius" min="1" max="50" value="10"/>
+            <span style="font-size:11px;color:var(--text3);font-family:var(--font-mono)">50 km</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Hours per Week</label>
+            <select id="volHours">
+              <option value="">Select...</option>
+              <option>1–5 hours</option>
+              <option>5–10 hours</option>
+              <option>10–20 hours</option>
+              <option>Full-time (20+ hours)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Preferred Time Slot</label>
+            <select id="volTime">
+              <option value="">Select...</option>
+              <option>Morning (6am–12pm)</option>
+              <option>Afternoon (12pm–6pm)</option>
+              <option>Evening (6pm–10pm)</option>
+              <option>Flexible / Anytime</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Days Available</label>
+          <div class="day-selector">
+            <div class="day-opt" data-day="Mon">M</div>
+            <div class="day-opt" data-day="Tue">T</div>
+            <div class="day-opt" data-day="Wed">W</div>
+            <div class="day-opt" data-day="Thu">T</div>
+            <div class="day-opt" data-day="Fri">F</div>
+            <div class="day-opt" data-day="Sat">S</div>
+            <div class="day-opt" data-day="Sun">S</div>
+          </div>
+          <input type="hidden" id="volDays"/>
+        </div>
+
+        <div class="form-section-label">Skills & Expertise</div>
+
+        <div class="form-group">
+          <label>Select Your Skills *</label>
+          <div class="skills-chips">
+            <div class="skill-chip" data-skill="First Aid / Medical">First Aid / Medical</div>
+            <div class="skill-chip" data-skill="Teaching / Tutoring">Teaching / Tutoring</div>
+            <div class="skill-chip" data-skill="Counseling">Counseling</div>
+            <div class="skill-chip" data-skill="Construction / Repair">Construction / Repair</div>
+            <div class="skill-chip" data-skill="Cooking / Food Distribution">Cooking / Food</div>
+            <div class="skill-chip" data-skill="Legal Knowledge">Legal Knowledge</div>
+            <div class="skill-chip" data-skill="IT / Tech Support">IT / Tech</div>
+            <div class="skill-chip" data-skill="Driving / Logistics">Driving / Logistics</div>
+            <div class="skill-chip" data-skill="Language Translation">Translation</div>
+            <div class="skill-chip" data-skill="General Labour">General Labour</div>
+          </div>
+          <input type="hidden" id="volSkills"/>
+        </div>
+
+        <div class="form-section-label">Background</div>
+
+        <div class="form-group">
+          <label>Languages Spoken</label>
+          <input type="text" id="volLanguages" placeholder="e.g. Hindi, Gujarati, English"/>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Qualifications <span class="optional">(optional)</span></label>
+            <input type="text" id="volQual" placeholder="e.g. MBBS, B.Ed, ITI"/>
+          </div>
+          <div class="form-group">
+            <label>Prior Experience <span class="optional">(optional)</span></label>
+            <input type="text" id="volExperience" placeholder="e.g. 2 years with Red Cross"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="toggle-row">
+            <span>Available on WhatsApp for quick coordination?</span>
+            <div class="toggle-switch" id="whatsappToggle"></div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" onclick="document.getElementById('volunteerForm').reset();resetForm()">Clear</button>
+          <button type="submit" class="btn-primary btn-submit">
+            <span class="btn-text">Register as Volunteer</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">◈ CommunityLink</div>
+    <p class="footer-sub">Flask · Firestore · Gemini AI · Cloud Run</p>
+    <div class="footer-links">
+      <a href="index.html">Dashboard</a>
+      <a href="needs.html">Report Need</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="match.html">Match</a>
+    </div>
+  </footer>
+
+  <div class="toast hidden" id="globalToast"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/volunteer.js"></script>
+</body>
+</html>
