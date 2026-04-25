@@ -1,4 +1,21 @@
-# CommunityLink — Full Stack Implementation
+# CommunityLink — Connect. Coordinate. Care.
+
+**CommunityLink** is an AI-powered coordination platform designed to bridge the gap between local crises and willing hearts. In times of need, speed and accuracy are paramount; CommunityLink ensures that relief efforts are directed where they matter most.
+
+---
+
+##  What is CommunityLink?
+
+CommunityLink is more than just a volunteer portal. It is a real-time ecosystem built to handle the complexities of community support:
+
+-   ** Real-time Crisis Reporting**: Empower community members to report urgent needs from the field instantly.
+-   ** AI-Powered Smart Matching**: Leverage Google Gemini AI to intelligently pair volunteers' unique skills with the most pressing requirements.
+-   ** Live Community Pulse**: A dynamic dashboard that visualizes urgent needs, skill distribution, and impact metrics in real-time.
+-   ** Unified Coordination**: Powered by Google Firestore, all data is synced instantly across the platform, ensuring no need goes unnoticed and no effort is duplicated.
+
+---
+
+## 🛠️ Implementation Details
 
 AI-powered volunteer coordination platform.
 **Stack: Python Flask · Google Firestore · Gemini AI · Docker · Cloud Run**
